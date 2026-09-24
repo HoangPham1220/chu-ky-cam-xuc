@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhịp cảm xúc 28 ngày</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Be+Vietnam+Pro:wght@400;500;600&display=swap">
+<style>
+:root {
+  --bg: #faf8f8;
+  --surface: #fcfcfb;
+  --ink: #1d1a1b;
+  --ink-2: #57504f;
+  --ink-3: #8a8281;
+  --rule: #e7e1e0;
+  --grid: #efeaea;
+  --band-a: #f4eeee;
+  --band-b: #fcfcfb;
+  --mark24: #1d1a1b;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+  --h1: #e87ba4; --h2: #4a3aa7;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #161515; --surface: #1a1a19; --ink: #f6f3f2; --ink-2: #c3bdbb; --ink-3: #8f8886;
+    --rule: #2f2c2c; --grid: #262424; --band-a: #221f1f; --band-b: #1a1a19; --mark24: #f6f3f2;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --h1: #d55181; --h2: #9085e9;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #161515; --surface: #1a1a19; --ink: #f6f3f2; --ink-2: #c3bdbb; --ink-3: #8f8886;
+  --rule: #2f2c2c; --grid: #262424; --band-a: #221f1f; --band-b: #1a1a19; --mark24: #f6f3f2;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --h1: #d55181; --h2: #9085e9;
+}
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 "Be Vietnam Pro", system-ui, sans-serif; padding: 0 16px; }
+.wrap { max-width: 920px; margin: 0 auto; padding-block: 40px 56px; display: grid; gap: 28px; }
+h1, h2 { font-family: Lora, Georgia, serif; font-weight: 600; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4vw, 34px); line-height: 1.2; }
+h2 { font-size: 20px; }
+.lede { color: var(--ink-2); max-width: 65ch; margin: 8px 0 0; }
+.note { font-size: 13px; color: var(--ink-3); max-width: 70ch; margin: 0; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; display: grid; gap: 12px; }
+.card p.sub { margin: 0; color: var(--ink-2); font-size: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
+.chart { position: relative; overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 560px; height: auto; font-family: inherit; }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; font-size: 12.5px; line-height: 1.5; box-shadow: 0 4px 16px rgba(0,0,0,.12); min-width: 170px; z-index: 2; }
+.tip b { display: block; font-weight: 600; margin-bottom: 2px; }
+.tip .row { display: flex; align-items: center; gap: 8px; color: var(--ink-2); }
+.tip .row em { font-style: normal; margin-left: auto; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tip .row i { width: 10px; height: 3px; border-radius: 2px; }
+.tip .ph { color: var(--ink-3); font-size: 12px; }
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.phase { border-top: 2px solid var(--rule); padding-top: 10px; }
+.phase h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
+.phase .d { font-size: 12px; color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; }
+.phase p { margin: 4px 0 0; font-size: 14px; color: var(--ink-2); }
+.phase.hl { border-top-color: var(--s2); }
+details { font-size: 13px; }
+summary { cursor: pointer; color: var(--ink-2); }
+summary:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+.tbl { overflow-x: auto; margin-top: 10px; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; width: 100%; }
+th, td { padding: 4px 8px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--ink-3); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Cảm xúc thay đổi thế nào qua một chu kỳ kinh nguyệt</h1>
+    <p class="lede">Chu kỳ mẫu 28 ngày, ngày 1 là ngày bắt đầu hành kinh. Đường nét là <strong>xu hướng chung</strong> để dễ hình dung, không phải số đo thực. Mỗi người, mỗi tháng đều khác nhau.</p>
+  </header>
+
+  <section class="card">
+    <h2>Tâm trạng, năng lượng và độ nhạy cảm</h2>
+    <p class="sub">Thang tương đối 0–100. Di chuột hoặc chạm vào biểu đồ để xem từng ngày.</p>
+    <div class="legend" id="lg1"></div>
+    <div class="chart" id="c1"></div>
+  </section>
+
+  <section class="card">
+    <h2>Hormone phía sau những thay đổi đó</h2>
+    <p class="sub">Mức tương đối của estrogen và progesterone. Cú giảm mạnh của cả hai ở cuối chu kỳ trùng với lúc tâm trạng đi xuống.</p>
+    <div class="legend" id="lg2"></div>
+    <div class="chart" id="c2"></div>
+  </section>
+
+  <section class="phases">
+    <div class="phase"><div class="d">Ngày 1–5</div><h3>Kỳ kinh</h3><p>Hormone thấp. Dễ mệt, muốn nghỉ ngơi. Cáu gắt tiền kinh nguyệt giảm dần.</p></div>
+    <div class="phase"><div class="d">Ngày 6–13</div><h3>Nang noãn</h3><p>Estrogen tăng. Tâm trạng sáng hơn, nhiều năng lượng, tập trung tốt.</p></div>
+    <div class="phase"><div class="d">Ngày 14–15</div><h3>Rụng trứng</h3><p>Estrogen đạt đỉnh. Tự tin, cởi mở, ham muốn cao nhất.</p></div>
+    <div class="phase hl"><div class="d">Ngày 16–28</div><h3>Hoàng thể</h3><p>Progesterone lên rồi cả hai hormone cùng giảm. Khoảng 5–7 ngày cuối dễ có PMS: cáu, tủi thân, lo âu, mệt.</p></div>
+  </section>
+
+  <details>
+    <summary>Xem dữ liệu dạng bảng</summary>
+    <div class="tbl"><table id="tbl"></table></div>
+  </details>
+
+  <p class="note">Mốc “Ngày 24” là khoảng 2 ngày trước kỳ kinh, thường là lúc triệu chứng tiền kinh nguyệt rõ nhất. Nếu cảm xúc tiêu cực nặng đến mức ảnh hưởng công việc hay các mối quan hệ (có thể là PMDD), nên đi khám bác sĩ.</p>
+</div>
+
+<script>
+(function () {
+  const days = Array.from({ length: 28 }, (_, i) => i + 1);
+  const mood   = [45,48,52,56,60,65,70,74,77,80,82,84,85,86,82,76,72,70,68,66,63,59,53,45,40,37,36,40];
+  const energy = [35,38,44,50,56,62,68,72,76,79,82,84,86,87,80,72,66,63,61,58,55,51,46,40,36,33,32,33];
+  const irrit  = [55,48,40,32,26,22,20,18,17,16,16,15,15,16,20,26,30,33,36,40,46,55,64,72,78,82,84,72];
+  const estro  = [20,20,22,25,30,38,48,60,72,82,90,95,92,80,58,46,48,55,62,65,64,60,52,44,36,28,22,20];
+  const prog   = [8,7,7,6,6,6,6,6,6,7,7,8,9,12,20,35,52,68,80,88,90,86,76,62,46,32,20,12];
+  const phases = [
+    { a: 1, b: 5,  name: "Kỳ kinh" },
+    { a: 6, b: 13, name: "Nang noãn" },
+    { a: 14, b: 15, name: "Rụng trứng" },
+    { a: 16, b: 28, name: "Hoàng thể" }
+  ];
+  const phaseOf = d => phases.find(p => d >= p.a && d <= p.b).name;
+
+  const cfg1 = [
+    { key: "s1", name: "Tâm trạng tích cực", data: mood },
+    { key: "s3", name: "Năng lượng", data: energy },
+    { key: "s2", name: "Nhạy cảm, dễ cáu", data: irrit }
+  ];
+  const cfg2 = [
+    { key: "h1", name: "Estrogen", data: estro },
+    { key: "h2", name: "Progesterone", data: prog }
+  ];
+
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+
+  function legend(id, cfg) {
+    document.getElementById(id).innerHTML = cfg.map(s =>
+      `<span><i style="background:var(--${s.key})"></i>${s.name}</span>`).join("");
+  }
+
+  function chart(id, cfg, H) {
+    const W = 860, m = { t: 34, r: 128, b: 40, l: 36 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const x = d => m.l + (d - 1) / 27 * iw;
+    const y = v => m.t + (1 - v / 100) * ih;
+    const host = document.getElementById(id);
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": cfg.map(s => s.name).join(", ") + " theo ngày trong chu kỳ" }, host);
+
+    // phase bands
+    phases.forEach((p, i) => {
+      const x0 = p.a === 1 ? m.l : (x(p.a) + x(p.a - 1)) / 2;
+      const x1 = p.b === 28 ? m.l + iw : (x(p.b) + x(p.b + 1)) / 2;
+      el("rect", { x: x0, y: m.t, width: x1 - x0, height: ih, fill: i % 2 ? "var(--band-b)" : "var(--band-a)" }, svg);
+      const t = el("text", { x: (x0 + x1) / 2, y: m.t - 12, "text-anchor": "middle", "font-size": 12, fill: "var(--ink-2)", "font-weight": 500 }, svg);
+      t.textContent = p.name;
+    });
+
+    // grid + y axis
+    [0, 25, 50, 75, 100].forEach(v => {
+      el("line", { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), stroke: "var(--grid)", "stroke-width": 1 }, svg);
+      const t = el("text", { x: m.l - 8, y: y(v) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--ink-3)" }, svg);
+      t.textContent = v;
+    });
+    el("line", { x1: m.l, x2: m.l + iw, y1: y(0), y2: y(0), stroke: "var(--rule)", "stroke-width": 1 }, svg);
+
+    // x axis
+    [1, 5, 10, 14, 20, 24, 28].forEach(d => {
+      const t = el("text", { x: x(d), y: m.t + ih + 18, "text-anchor": "middle", "font-size": 11, fill: "var(--ink-3)" }, svg);
+      t.textContent = d;
+    });
+    const xl = el("text", { x: m.l + iw / 2, y: H - 4, "text-anchor": "middle", "font-size": 11, fill: "var(--ink-3)" }, svg);
+    xl.textContent = "Ngày trong chu kỳ";
+
+    // day 24 marker
+    el("line", { x1: x(24), x2: x(24), y1: m.t, y2: m.t + ih, stroke: "var(--mark24)", "stroke-width": 1, "stroke-dasharray": "3 3", opacity: .55 }, svg);
+    const m24 = el("text", { x: x(24) - 4, y: m.t + 12, "text-anchor": "end", "font-size": 11, fill: "var(--ink-2)" }, svg);
+    m24.textContent = "Ngày 24";
+
+    // lines
+    cfg.forEach(s => {
+      const d = s.data.map((v, i) => `${i ? "L" : "M"}${x(i + 1).toFixed(1)},${y(v).toFixed(1)}`).join("");
+      el("path", { d, fill: "none", stroke: `var(--${s.key})`, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+    });
+
+    // direct labels at the end, nudged apart
+    const ends = cfg.map(s => ({ s, yy: y(s.data[27]) })).sort((a, b) => a.yy - b.yy);
+    for (let i = 1; i < ends.length; i++) if (ends[i].yy - ends[i - 1].yy < 15) ends[i].yy = ends[i - 1].yy + 15;
+    ends.forEach(({ s, yy }) => {
+      el("circle", { cx: x(28), cy: y(s.data[27]), r: 4, fill: `var(--${s.key})`, stroke: "var(--surface)", "stroke-width": 2 }, svg);
+      const t = el("text", { x: x(28) + 10, y: yy + 4, "font-size": 12, fill: "var(--ink)" }, svg);
+      t.textContent = s.name;
+    });
+
+    // hover layer
+    const cross = el("line", { y1: m.t, y2: m.t + ih, stroke: "var(--ink-3)", "stroke-width": 1, visibility: "hidden" }, svg);
+    const dots = cfg.map(s => el("circle", { r: 4.5, fill: `var(--${s.key})`, stroke: "var(--surface)", "stroke-width": 2, visibility: "hidden" }, svg));
+    const hit = el("rect", { x: m.l, y: m.t, width: iw, height: ih, fill: "transparent" }, svg);
+    const tip = document.createElement("div");
+    tip.className = "tip"; tip.hidden = true; host.appendChild(tip);
+
+    function show(evt) {
+      const pt = svg.createSVGPoint();
+      const src = evt.touches ? evt.touches[0] : evt;
+      pt.x = src.clientX; pt.y = src.clientY;
+      const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const d = Math.max(1, Math.min(28, Math.round((p.x - m.l) / iw * 27) + 1));
+      cross.setAttribute("x1", x(d)); cross.setAttribute("x2", x(d)); cross.setAttribute("visibility", "visible");
+      cfg.forEach((s, i) => {
+        dots[i].setAttribute("cx", x(d)); dots[i].setAttribute("cy", y(s.data[d - 1])); dots[i].setAttribute("visibility", "visible");
+      });
+      tip.innerHTML = `<b>Ngày ${d}</b><div class="ph">${phaseOf(d)}${d === 24 ? " · 2 ngày trước kỳ kinh" : ""}</div>` +
+        cfg.map(s => `<div class="row"><i style="background:var(--${s.key})"></i>${s.name}<em>${s.data[d - 1]}</em></div>`).join("");
+      tip.hidden = false;
+      const hr = host.getBoundingClientRect();
+      const sx = src.clientX - hr.left + host.scrollLeft;
+      const left = sx + 14 + tip.offsetWidth > host.scrollLeft + hr.width ? sx - tip.offsetWidth - 14 : sx + 14;
+      tip.style.left = left + "px";
+      tip.style.top = Math.max(0, src.clientY - hr.top - 20) + "px";
+    }
+    function hide() {
+      tip.hidden = true; cross.setAttribute("visibility", "hidden");
+      dots.forEach(dt => dt.setAttribute("visibility", "hidden"));
+    }
+    hit.addEventListener("mousemove", show);
+    hit.addEventListener("touchstart", show, { passive: true });
+    hit.addEventListener("touchmove", show, { passive: true });
+    hit.addEventListener("mouseleave", hide);
+  }
+
+  legend("lg1", cfg1); legend("lg2", cfg2);
+  chart("c1", cfg1, 340);
+  chart("c2", cfg2, 260);
+
+  const all = [...cfg1, ...cfg2];
+  document.getElementById("tbl").innerHTML =
+    `<thead><tr><th>Ngày</th><th>Giai đoạn</th>${all.map(s => `<th>${s.name}</th>`).join("")}</tr></thead><tbody>` +
+    days.map(d => `<tr><td>${d}</td><td>${phaseOf(d)}</td>${all.map(s => `<td>${s.data[d - 1]}</td>`).join("")}</tr>`).join("") +
+    "</tbody>";
+})();
+</script>
+</body>
+</html>

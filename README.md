@@ -1,6 +1,6 @@
 # Nhịp cảm xúc 28 ngày
 
-Biểu đồ minh họa tâm trạng, năng lượng, độ nhạy cảm và hormone (estrogen, progesterone) qua một chu kỳ kinh nguyệt 28 ngày.
+Lịch chu kỳ để chọn ngày bắt đầu kỳ kinh và xem hôm nay đang ở giai đoạn nào, cảm xúc và cơ thể có thể ra sao. Kèm biểu đồ minh họa tâm trạng, năng lượng, độ nhạy cảm và hormone (estrogen, progesterone) qua một chu kỳ 28 ngày.
 
 Xem trực tiếp: https://hoangpham1220.github.io/chu-ky-cam-xuc/
 

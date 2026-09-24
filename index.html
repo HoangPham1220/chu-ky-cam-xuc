@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nhịp cảm xúc 28 ngày</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Be+Vietnam+Pro:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
 <style>
 :root {
   --bg: #faf8f8;
@@ -17,23 +17,34 @@
   --grid: #efeaea;
   --band-a: #f4eeee;
   --band-b: #fcfcfb;
-  --mark24: #1d1a1b;
+  --mark: #1d1a1b;
   --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
   --h1: #e87ba4; --h2: #4a3aa7;
+  --period: #d4406e;
+  --period-soft: #fbe6ec;
+  --fertile: #0e8a86;
+  --sel: #1d1a1b;
+  --sel-ink: #fcfcfb;
+  --btn: #d4406e;
+  --btn-ink: #ffffff;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --bg: #161515; --surface: #1a1a19; --ink: #f6f3f2; --ink-2: #c3bdbb; --ink-3: #8f8886;
-    --rule: #2f2c2c; --grid: #262424; --band-a: #221f1f; --band-b: #1a1a19; --mark24: #f6f3f2;
+    --rule: #2f2c2c; --grid: #262424; --band-a: #221f1f; --band-b: #1a1a19; --mark: #f6f3f2;
     --s1: #3987e5; --s2: #d95926; --s3: #199e70; --h1: #d55181; --h2: #9085e9;
+    --period: #f07a9c; --period-soft: #3a2029; --fertile: #45c4bd;
+    --sel: #f6f3f2; --sel-ink: #1a1a19; --btn: #e0587f; --btn-ink: #ffffff;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #161515; --surface: #1a1a19; --ink: #f6f3f2; --ink-2: #c3bdbb; --ink-3: #8f8886;
-  --rule: #2f2c2c; --grid: #262424; --band-a: #221f1f; --band-b: #1a1a19; --mark24: #f6f3f2;
+  --rule: #2f2c2c; --grid: #262424; --band-a: #221f1f; --band-b: #1a1a19; --mark: #f6f3f2;
   --s1: #3987e5; --s2: #d95926; --s3: #199e70; --h1: #d55181; --h2: #9085e9;
+  --period: #f07a9c; --period-soft: #3a2029; --fertile: #45c4bd;
+  --sel: #f6f3f2; --sel-ink: #1a1a19; --btn: #e0587f; --btn-ink: #ffffff;
 }
 body { background: var(--bg); color: var(--ink); font: 15px/1.6 "Be Vietnam Pro", system-ui, sans-serif; padding: 0 16px; }
 .wrap { max-width: 920px; margin: 0 auto; padding-block: 40px 56px; display: grid; gap: 28px; }
@@ -42,7 +53,7 @@ h1 { font-size: clamp(26px, 4vw, 34px); line-height: 1.2; }
 h2 { font-size: 20px; }
 .lede { color: var(--ink-2); max-width: 65ch; margin: 8px 0 0; }
 .note { font-size: 13px; color: var(--ink-3); max-width: 70ch; margin: 0; }
-.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; display: grid; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; display: grid; gap: 12px; min-width: 0; }
 .card p.sub { margin: 0; color: var(--ink-2); font-size: 14px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); }
 .legend span { display: inline-flex; align-items: center; gap: 8px; }
@@ -60,15 +71,63 @@ h2 { font-size: 20px; }
 .phase h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
 .phase .d { font-size: 12px; color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; }
 .phase p { margin: 4px 0 0; font-size: 14px; color: var(--ink-2); }
-.phase.hl { border-top-color: var(--s2); }
 details { font-size: 13px; }
 summary { cursor: pointer; color: var(--ink-2); }
-summary:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
 .tbl { overflow-x: auto; margin-top: 10px; }
 table { border-collapse: collapse; font-variant-numeric: tabular-nums; width: 100%; }
 th, td { padding: 4px 8px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
 th:first-child, td:first-child { text-align: left; }
 th { color: var(--ink-3); font-weight: 500; }
+
+/* ---- Lịch ---- */
+.cal-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 760px) { .cal-layout { grid-template-columns: minmax(0, 1fr); } }
+.settings { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+.field { display: grid; gap: 4px; font-size: 12px; color: var(--ink-3); letter-spacing: .03em; text-transform: uppercase; }
+.field input, .field select { font: 500 14px/1.2 "Be Vietnam Pro", system-ui, sans-serif; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; text-transform: none; letter-spacing: 0; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.cal-head h3 { margin: 0; font-size: 17px; font-weight: 600; text-align: center; flex: 1; }
+.nav { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); font-size: 18px; line-height: 1; cursor: pointer; }
+.nav:hover { background: var(--band-a); }
+.grid7 { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: 4px; text-align: center; }
+.wd { font-size: 11px; color: var(--ink-3); font-weight: 500; padding-block: 6px; letter-spacing: .04em; }
+.day { position: relative; display: grid; place-items: end center; height: 54px; padding: 0 0 2px; background: none; border: 0; cursor: pointer; font: 500 15px/1 "Be Vietnam Pro", system-ui, sans-serif; color: var(--ink); }
+.day .n { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; font-variant-numeric: tabular-nums; }
+.day.fertile .n { color: var(--fertile); }
+.day.ovu .n { border: 2px dotted var(--fertile); color: var(--fertile); }
+.day.period .n { border: 2px dotted var(--period); color: var(--period); }
+.day.period.past .n { border-style: solid; background: var(--period-soft); }
+.day.today .n { font-weight: 700; }
+.day.today::before { content: "HÔM NAY"; position: absolute; top: 0; font-size: 8.5px; font-weight: 700; letter-spacing: .05em; color: var(--ink); }
+.day.sel .n { background: var(--sel); color: var(--sel-ink); border-color: var(--sel); }
+.day:focus-visible { outline: none; }
+.day:focus-visible .n { outline: 2px solid var(--s1); outline-offset: 2px; }
+.day:hover:not(.sel) .n { background: var(--band-a); }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--ink-2); margin-top: 10px; }
+.keys span { display: inline-flex; align-items: center; gap: 6px; }
+.keys i { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+.k-period { border: 2px dotted var(--period); }
+.k-ovu { border: 2px dotted var(--fertile); }
+.k-fertile { background: var(--fertile); transform: scale(.55); }
+
+.detail { display: grid; gap: 14px; }
+.detail .date { font-size: 13px; color: var(--ink-3); }
+.detail h3 { margin: 0; font-family: Lora, Georgia, serif; font-size: 22px; font-weight: 600; line-height: 1.25; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-2); }
+.chip.c-period { border-color: var(--period); color: var(--period); }
+.chip.c-fertile { border-color: var(--fertile); color: var(--fertile); }
+.countdown { font-size: 14px; color: var(--ink-2); margin: 0; }
+.countdown strong { color: var(--ink); }
+.meters { display: grid; gap: 8px; }
+.meter { display: grid; grid-template-columns: 130px minmax(0, 1fr) 30px; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-2); }
+.meter .bar { height: 6px; background: var(--grid); border-radius: 3px; overflow: hidden; }
+.meter .bar b { display: block; height: 100%; border-radius: 3px; }
+.meter em { font-style: normal; text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+.block h4 { margin: 0 0 2px; font-size: 12px; font-weight: 600; color: var(--ink-3); letter-spacing: .05em; text-transform: uppercase; }
+.block p { margin: 0; font-size: 14.5px; }
+.action { justify-self: start; font: 600 14px/1 "Be Vietnam Pro", system-ui, sans-serif; background: var(--btn); color: var(--btn-ink); border: 0; border-radius: 999px; padding: 11px 18px; cursor: pointer; }
+.action:focus-visible, .nav:focus-visible, summary:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -76,12 +135,43 @@ th { color: var(--ink-3); font-weight: 500; }
 <div class="wrap">
   <header>
     <h1>Cảm xúc thay đổi thế nào qua một chu kỳ kinh nguyệt</h1>
-    <p class="lede">Chu kỳ mẫu 28 ngày, ngày 1 là ngày bắt đầu hành kinh. Đường nét là <strong>xu hướng chung</strong> để dễ hình dung, không phải số đo thực. Mỗi người, mỗi tháng đều khác nhau.</p>
+    <p class="lede">Chọn ngày bắt đầu kỳ kinh gần nhất để biết hôm nay đang ở giai đoạn nào, cảm xúc và cơ thể có thể ra sao. Các mức độ là <strong>xu hướng chung</strong> để dễ hình dung, không phải số đo thực. Mỗi người, mỗi tháng đều khác nhau.</p>
   </header>
 
   <section class="card">
+    <h2>Lịch chu kỳ</h2>
+    <div class="settings">
+      <label class="field">Ngày bắt đầu kỳ kinh gần nhất
+        <input type="date" id="startInput">
+      </label>
+      <label class="field">Độ dài chu kỳ
+        <select id="cycleInput"></select>
+      </label>
+      <label class="field">Số ngày hành kinh
+        <select id="periodInput"></select>
+      </label>
+    </div>
+    <div class="cal-layout">
+      <div>
+        <div class="cal-head">
+          <button class="nav" id="prevM" aria-label="Tháng trước">‹</button>
+          <h3 id="monthTitle"></h3>
+          <button class="nav" id="nextM" aria-label="Tháng sau">›</button>
+        </div>
+        <div class="grid7" id="calGrid"></div>
+        <div class="keys">
+          <span><i class="k-period"></i>Kỳ kinh</span>
+          <span><i class="k-fertile"></i>Dễ thụ thai</span>
+          <span><i class="k-ovu"></i>Rụng trứng (dự đoán)</span>
+        </div>
+      </div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="card">
     <h2>Tâm trạng, năng lượng và độ nhạy cảm</h2>
-    <p class="sub">Thang tương đối 0–100. Di chuột hoặc chạm vào biểu đồ để xem từng ngày.</p>
+    <p class="sub">Chu kỳ mẫu 28 ngày, thang tương đối 0–100. Đường kẻ đứt là ngày đang chọn trên lịch. Di chuột hoặc chạm vào biểu đồ để xem từng ngày.</p>
     <div class="legend" id="lg1"></div>
     <div class="chart" id="c1"></div>
   </section>
@@ -97,7 +187,7 @@ th { color: var(--ink-3); font-weight: 500; }
     <div class="phase"><div class="d">Ngày 1–5</div><h3>Kỳ kinh</h3><p>Hormone thấp. Dễ mệt, muốn nghỉ ngơi. Cáu gắt tiền kinh nguyệt giảm dần.</p></div>
     <div class="phase"><div class="d">Ngày 6–13</div><h3>Nang noãn</h3><p>Estrogen tăng. Tâm trạng sáng hơn, nhiều năng lượng, tập trung tốt.</p></div>
     <div class="phase"><div class="d">Ngày 14–15</div><h3>Rụng trứng</h3><p>Estrogen đạt đỉnh. Tự tin, cởi mở, ham muốn cao nhất.</p></div>
-    <div class="phase hl"><div class="d">Ngày 16–28</div><h3>Hoàng thể</h3><p>Progesterone lên rồi cả hai hormone cùng giảm. Khoảng 5–7 ngày cuối dễ có PMS: cáu, tủi thân, lo âu, mệt.</p></div>
+    <div class="phase"><div class="d">Ngày 16–28</div><h3>Hoàng thể</h3><p>Progesterone lên rồi cả hai hormone cùng giảm. Khoảng 5–7 ngày cuối dễ có PMS: cáu, tủi thân, lo âu, mệt.</p></div>
   </section>
 
   <details>
@@ -105,7 +195,7 @@ th { color: var(--ink-3); font-weight: 500; }
     <div class="tbl"><table id="tbl"></table></div>
   </details>
 
-  <p class="note">Mốc “Ngày 24” là khoảng 2 ngày trước kỳ kinh, thường là lúc triệu chứng tiền kinh nguyệt rõ nhất. Nếu cảm xúc tiêu cực nặng đến mức ảnh hưởng công việc hay các mối quan hệ (có thể là PMDD), nên đi khám bác sĩ.</p>
+  <p class="note">Ngày rụng trứng và kỳ kinh tiếp theo là dự đoán, tính theo cách phổ biến: rụng trứng khoảng 14 ngày trước kỳ kinh sau. Chu kỳ không đều thì dự đoán kém chính xác, không dùng thay biện pháp tránh thai. Nếu cảm xúc tiêu cực nặng đến mức ảnh hưởng công việc hay các mối quan hệ (có thể là PMDD), nên đi khám bác sĩ.</p>
 </div>
 
 <script>
@@ -155,7 +245,6 @@ th { color: var(--ink-3); font-weight: 500; }
     const host = document.getElementById(id);
     const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": cfg.map(s => s.name).join(", ") + " theo ngày trong chu kỳ" }, host);
 
-    // phase bands
     phases.forEach((p, i) => {
       const x0 = p.a === 1 ? m.l : (x(p.a) + x(p.a - 1)) / 2;
       const x1 = p.b === 28 ? m.l + iw : (x(p.b) + x(p.b + 1)) / 2;
@@ -164,7 +253,6 @@ th { color: var(--ink-3); font-weight: 500; }
       t.textContent = p.name;
     });
 
-    // grid + y axis
     [0, 25, 50, 75, 100].forEach(v => {
       el("line", { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), stroke: "var(--grid)", "stroke-width": 1 }, svg);
       const t = el("text", { x: m.l - 8, y: y(v) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--ink-3)" }, svg);
@@ -172,7 +260,6 @@ th { color: var(--ink-3); font-weight: 500; }
     });
     el("line", { x1: m.l, x2: m.l + iw, y1: y(0), y2: y(0), stroke: "var(--rule)", "stroke-width": 1 }, svg);
 
-    // x axis
     [1, 5, 10, 14, 20, 24, 28].forEach(d => {
       const t = el("text", { x: x(d), y: m.t + ih + 18, "text-anchor": "middle", "font-size": 11, fill: "var(--ink-3)" }, svg);
       t.textContent = d;
@@ -180,18 +267,15 @@ th { color: var(--ink-3); font-weight: 500; }
     const xl = el("text", { x: m.l + iw / 2, y: H - 4, "text-anchor": "middle", "font-size": 11, fill: "var(--ink-3)" }, svg);
     xl.textContent = "Ngày trong chu kỳ";
 
-    // day 24 marker
-    el("line", { x1: x(24), x2: x(24), y1: m.t, y2: m.t + ih, stroke: "var(--mark24)", "stroke-width": 1, "stroke-dasharray": "3 3", opacity: .55 }, svg);
-    const m24 = el("text", { x: x(24) - 4, y: m.t + 12, "text-anchor": "end", "font-size": 11, fill: "var(--ink-2)" }, svg);
-    m24.textContent = "Ngày 24";
+    // marker for the day selected on the calendar
+    const mk = el("line", { y1: m.t, y2: m.t + ih, stroke: "var(--mark)", "stroke-width": 1, "stroke-dasharray": "3 3", opacity: .6, visibility: "hidden" }, svg);
+    const mkT = el("text", { y: m.t + 12, "font-size": 11, fill: "var(--ink)", "font-weight": 600, visibility: "hidden" }, svg);
 
-    // lines
     cfg.forEach(s => {
       const d = s.data.map((v, i) => `${i ? "L" : "M"}${x(i + 1).toFixed(1)},${y(v).toFixed(1)}`).join("");
       el("path", { d, fill: "none", stroke: `var(--${s.key})`, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
     });
 
-    // direct labels at the end, nudged apart
     const ends = cfg.map(s => ({ s, yy: y(s.data[27]) })).sort((a, b) => a.yy - b.yy);
     for (let i = 1; i < ends.length; i++) if (ends[i].yy - ends[i - 1].yy < 15) ends[i].yy = ends[i - 1].yy + 15;
     ends.forEach(({ s, yy }) => {
@@ -200,7 +284,6 @@ th { color: var(--ink-3); font-weight: 500; }
       t.textContent = s.name;
     });
 
-    // hover layer
     const cross = el("line", { y1: m.t, y2: m.t + ih, stroke: "var(--ink-3)", "stroke-width": 1, visibility: "hidden" }, svg);
     const dots = cfg.map(s => el("circle", { r: 4.5, fill: `var(--${s.key})`, stroke: "var(--surface)", "stroke-width": 2, visibility: "hidden" }, svg));
     const hit = el("rect", { x: m.l, y: m.t, width: iw, height: ih, fill: "transparent" }, svg);
@@ -217,7 +300,7 @@ th { color: var(--ink-3); font-weight: 500; }
       cfg.forEach((s, i) => {
         dots[i].setAttribute("cx", x(d)); dots[i].setAttribute("cy", y(s.data[d - 1])); dots[i].setAttribute("visibility", "visible");
       });
-      tip.innerHTML = `<b>Ngày ${d}</b><div class="ph">${phaseOf(d)}${d === 24 ? " · 2 ngày trước kỳ kinh" : ""}</div>` +
+      tip.innerHTML = `<b>Ngày ${d}</b><div class="ph">${phaseOf(d)}</div>` +
         cfg.map(s => `<div class="row"><i style="background:var(--${s.key})"></i>${s.name}<em>${s.data[d - 1]}</em></div>`).join("");
       tip.hidden = false;
       const hr = host.getBoundingClientRect();
@@ -234,17 +317,193 @@ th { color: var(--ink-3); font-weight: 500; }
     hit.addEventListener("touchstart", show, { passive: true });
     hit.addEventListener("touchmove", show, { passive: true });
     hit.addEventListener("mouseleave", hide);
+
+    return {
+      setMarker(d, label) {
+        mk.setAttribute("x1", x(d)); mk.setAttribute("x2", x(d)); mk.setAttribute("visibility", "visible");
+        const right = d > 20;
+        mkT.setAttribute("x", right ? x(d) - 5 : x(d) + 5);
+        mkT.setAttribute("text-anchor", right ? "end" : "start");
+        mkT.textContent = label;
+        mkT.setAttribute("visibility", "visible");
+      }
+    };
   }
 
   legend("lg1", cfg1); legend("lg2", cfg2);
-  chart("c1", cfg1, 340);
-  chart("c2", cfg2, 260);
+  const ch1 = chart("c1", cfg1, 340);
+  const ch2 = chart("c2", cfg2, 260);
 
   const all = [...cfg1, ...cfg2];
   document.getElementById("tbl").innerHTML =
     `<thead><tr><th>Ngày</th><th>Giai đoạn</th>${all.map(s => `<th>${s.name}</th>`).join("")}</tr></thead><tbody>` +
     days.map(d => `<tr><td>${d}</td><td>${phaseOf(d)}</td>${all.map(s => `<td>${s.data[d - 1]}</td>`).join("")}</tr>`).join("") +
     "</tbody>";
+
+  /* ---------- Lịch chu kỳ ---------- */
+  const INFO = {
+    period: {
+      name: "Kỳ kinh",
+      mood: "Dễ mệt, muốn ở yên một mình, có thể buồn nhẹ. Nhiều người lại thấy nhẹ nhõm vì cáu gắt tiền kinh nguyệt đã qua.",
+      body: "Ra máu, đau bụng dưới hoặc lưng, mỏi người, có thể đau đầu hay rối loạn tiêu hoá nhẹ.",
+      tip: "Nghỉ ngơi, chườm ấm bụng, uống đủ nước, ăn thực phẩm giàu sắt (thịt đỏ, rau xanh đậm)."
+    },
+    follicular: {
+      name: "Nang noãn",
+      mood: "Tâm trạng sáng dần, lạc quan, tự tin hơn, dễ tập trung và muốn giao tiếp.",
+      body: "Năng lượng tăng, da thường đẹp hơn, cơ thể hồi phục tốt sau vận động.",
+      tip: "Hợp để bắt đầu việc mới, làm việc cần tập trung, tập luyện cường độ cao."
+    },
+    ovulation: {
+      name: "Rụng trứng",
+      mood: "Hưng phấn, cởi mở, tự tin nhất trong chu kỳ. Ham muốn tình dục thường cao nhất.",
+      body: "Dịch âm đạo trong, dai như lòng trắng trứng. Thân nhiệt tăng nhẹ, có thể đau nhói một bên bụng dưới. Khả năng thụ thai cao nhất.",
+      tip: "Nếu đang tránh thai, đây là những ngày cần cẩn thận nhất. Nếu đang muốn có con, đây là thời điểm thuận lợi."
+    },
+    luteal: {
+      name: "Hoàng thể",
+      mood: "Bình tĩnh, ổn định hơn nhưng bớt hào hứng. Có thể buồn ngủ, muốn ở nhà nhiều hơn.",
+      body: "Thân nhiệt cao hơn, thèm ăn tăng, có thể hơi đầy hơi.",
+      tip: "Giữ giờ ngủ đều, ăn đủ bữa, ưu tiên bài tập vừa sức."
+    },
+    pms: {
+      name: "Tiền kinh nguyệt",
+      mood: "Dễ cáu, nhạy cảm, dễ tủi thân hoặc khóc, lo âu, tâm trạng thất thường. Chuyện nhỏ cũng dễ thấy nặng nề.",
+      body: "Căng tức ngực, đầy hơi, nổi mụn, thèm ngọt hoặc mặn, mệt, khó ngủ, có thể đau lưng hoặc đau đầu.",
+      tip: "Ngủ đủ, bớt cà phê, đồ mặn và đồ ngọt, đi bộ hoặc yoga nhẹ. Tránh quyết định lớn và tranh cãi căng thẳng."
+    }
+  };
+
+  const DAY = 86400000;
+  const pad = n => String(n).padStart(2, "0");
+  const toKey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const fromKey = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
+  const dayNum = d => Math.round(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / DAY);
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const fmt = d => `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+  const WD = ["Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  let state = { start: "2026-08-29", cycle: 28, period: 5 };
+  try {
+    const saved = JSON.parse(localStorage.getItem("cycle-settings") || "null");
+    if (saved && saved.start) state = Object.assign(state, saved);
+  } catch (e) {}
+  const save = () => { try { localStorage.setItem("cycle-settings", JSON.stringify(state)); } catch (e) {} };
+
+  let selected = today;
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  const startInput = document.getElementById("startInput");
+  const cycleInput = document.getElementById("cycleInput");
+  const periodInput = document.getElementById("periodInput");
+  for (let i = 21; i <= 40; i++) cycleInput.add(new Option(`${i} ngày`, i));
+  for (let i = 2; i <= 9; i++) periodInput.add(new Option(`${i} ngày`, i));
+
+  function syncInputs() {
+    startInput.value = state.start;
+    cycleInput.value = state.cycle;
+    periodInput.value = state.period;
+  }
+
+  // Everything about one date: cycle day, phase, predicted flags.
+  function infoFor(date) {
+    const L = +state.cycle, P = +state.period;
+    const diff = dayNum(date) - dayNum(fromKey(state.start));
+    const cd = ((diff % L) + L) % L + 1;
+    const O = L - 14;
+    const fertile = cd >= O - 5 && cd <= O + 1;
+    let key;
+    if (cd <= P) key = "period";
+    else if (cd >= O - 1 && cd <= O + 1) key = "ovulation";
+    else if (cd < O) key = "follicular";
+    else if (cd > L - 7) key = "pms";
+    else key = "luteal";
+    // map onto the 28-day template: ovulation lines up with day 14
+    const t = cd <= O ? 1 + (cd - 1) * 13 / Math.max(1, O - 1) : 14 + (cd - O) * 14 / (L - O);
+    const tpl = Math.max(1, Math.min(28, Math.round(t)));
+    return { cd, key, fertile, ovu: cd === O, period: cd <= P, tpl, L, predicted: diff >= L || diff < 0 };
+  }
+
+  function renderCal() {
+    const y = view.getFullYear(), mo = view.getMonth();
+    document.getElementById("monthTitle").textContent = `Tháng ${mo + 1}, ${y}`;
+    const grid = document.getElementById("calGrid");
+    const head = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map(w => `<div class="wd">${w}</div>`).join("");
+    const lead = (new Date(y, mo, 1).getDay() + 6) % 7;
+    const count = new Date(y, mo + 1, 0).getDate();
+    let html = head + "<div></div>".repeat(lead);
+    for (let d = 1; d <= count; d++) {
+      const date = new Date(y, mo, d);
+      const inf = infoFor(date);
+      const cls = ["day"];
+      if (inf.period) { cls.push("period"); if (dayNum(date) <= dayNum(today)) cls.push("past"); }
+      else if (inf.ovu) cls.push("ovu");
+      else if (inf.fertile) cls.push("fertile");
+      if (dayNum(date) === dayNum(today)) cls.push("today");
+      if (dayNum(date) === dayNum(selected)) cls.push("sel");
+      const label = `${d} tháng ${mo + 1}, ngày ${inf.cd} của chu kỳ, ${INFO[inf.key].name}`;
+      html += `<button class="${cls.join(" ")}" data-k="${toKey(date)}" aria-label="${label}" aria-pressed="${cls.includes("sel")}"><span class="n">${d}</span></button>`;
+    }
+    grid.innerHTML = html;
+  }
+
+  function renderDetail() {
+    const inf = infoFor(selected);
+    const I = INFO[inf.key];
+    const isToday = dayNum(selected) === dayNum(today);
+    const nextStart = addDays(selected, inf.L - inf.cd + 1);
+    const left = inf.L - inf.cd + 1;
+    const chips = [`<span class="chip">Ngày ${inf.cd}/${inf.L} của chu kỳ</span>`];
+    if (inf.period) chips.push(`<span class="chip c-period">Đang hành kinh</span>`);
+    if (inf.fertile) chips.push(`<span class="chip c-fertile">${inf.ovu ? "Ngày rụng trứng dự đoán" : "Dễ thụ thai"}</span>`);
+    const meters = cfg1.map(s => {
+      const v = s.data[inf.tpl - 1];
+      return `<div class="meter"><span>${s.name}</span><span class="bar"><b style="width:${v}%;background:var(--${s.key})"></b></span><em>${v}</em></div>`;
+    }).join("");
+    document.getElementById("detail").innerHTML = `
+      <div>
+        <div class="date">${isToday ? "Hôm nay · " : ""}${WD[selected.getDay()]}, ${fmt(selected)}</div>
+        <h3>${I.name}</h3>
+      </div>
+      <div class="chips">${chips.join("")}</div>
+      <p class="countdown">Kỳ kinh tiếp theo dự kiến: <strong>${fmt(nextStart)}</strong> (còn ${left} ngày)</p>
+      <div class="meters">${meters}</div>
+      <div class="block"><h4>Cảm xúc có thể</h4><p>${I.mood}</p></div>
+      <div class="block"><h4>Cơ thể có thể</h4><p>${I.body}</p></div>
+      <div class="block"><h4>Nên làm</h4><p>${I.tip}</p></div>
+      <button class="action" id="markStart">Đặt ${fmt(selected)} là ngày bắt đầu kỳ kinh</button>`;
+    document.getElementById("markStart").addEventListener("click", () => {
+      state.start = toKey(selected); save(); syncInputs(); renderAll();
+    });
+    const label = isToday ? "Hôm nay" : `${pad(selected.getDate())}/${pad(selected.getMonth() + 1)}`;
+    ch1.setMarker(inf.tpl, label);
+    ch2.setMarker(inf.tpl, label);
+  }
+
+  function renderAll() { renderCal(); renderDetail(); }
+
+  document.getElementById("calGrid").addEventListener("click", e => {
+    const b = e.target.closest(".day");
+    if (!b) return;
+    selected = fromKey(b.dataset.k);
+    renderAll();
+    const again = document.querySelector(`.day[data-k="${b.dataset.k}"]`);
+    if (again) again.focus();
+  });
+  document.getElementById("prevM").addEventListener("click", () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderCal(); });
+  document.getElementById("nextM").addEventListener("click", () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderCal(); });
+  startInput.addEventListener("change", () => {
+    if (!startInput.value) return;
+    state.start = startInput.value; save(); renderAll();
+  });
+  cycleInput.addEventListener("change", () => { state.cycle = +cycleInput.value; save(); renderAll(); });
+  periodInput.addEventListener("change", () => { state.period = +periodInput.value; save(); renderAll(); });
+
+  syncInputs();
+  renderAll();
 })();
 </script>
 </body>
